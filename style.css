@@ -1,0 +1,23 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial;
+    text-align: center;
+    padding: 20px;
+}
+
+button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+img {
+    border: 3px solid green;
+}
+a button {
+    background-color: #25D366; /* WhatsApp wala hara */
+}
