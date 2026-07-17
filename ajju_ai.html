@@ -7,7 +7,7 @@ body{background:#000; color:#0ff; text-align:center; padding:50px; font-family:s
 h1{text-shadow:0 0 10px #0ff;}
 .mic{width:150px; height:150px; background:#0ff; border-radius:50%; margin:40px auto; line-height:150px; font-size:70px; color:#000; cursor:pointer; box-shadow:0 0 40px #0ff;}
 .mic:active{background:#fff;}
-#reply{font-size:20px; margin-top:20px;}
+#reply{font-size:20px; margin-top:20px; white-space:pre-line;}
 </style>
 </head>
 <body>
@@ -17,7 +17,6 @@ h1{text-shadow:0 0 10px #0ff;}
 <div id="reply">Mai sun raha hu...</div>
 
 <script>
-// 1. SUNNE WALA
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 recognition.lang = 'hi-IN';
@@ -33,10 +32,9 @@ recognition.onresult = function(event){
     jawabDo(sawal);
 }
 
-// 2. SOCHNE + BOLNE WALA
 function jawabDo(sawal){
     let jawab = "";
-    sawal = sawal.toLowerCase(); // chota bada ignore karega
+    sawal = sawal.toLowerCase();
 
     if(sawal.includes("naam") || sawal.includes("name") || sawal.includes("kaun ho")){
         jawab = "Mera naam Ajju AI hai. Mai tumhara dost hu.";
@@ -44,23 +42,19 @@ function jawabDo(sawal){
     else if(sawal.includes("kese ho") || sawal.includes("kaise ho")){
         jawab = "Mai ekdum mast hu bhai. Tum sunao.";
     }
-    else if(sawal.includes("kya kar sakte ho") || sawal.includes("help")){
-        jawab = "Mai tumse baat kar sakta hu, joke suna sakta hu, time bata sakta hu. Jo bolo.";
-    }
     else if(sawal.includes("joke") || sawal.includes("chutkula")){
-        jawab = "Master ji: Beta agar 1 kele ke 10 rupaye hai to 2 kele ke? Student: Sir 20 rupaye aur 1 mufat";
+        jawab = "Teacher: Agar tumhare paas 10 aam hai aur mai 5 maang lu to? Student: Sir 10 hi, dunga hi nahi.";
     }
-    else if(sawal.includes("time") || sawal.includes("kitna baja")){
+    else if(sawal.includes("time")){
         let time = new Date().toLocaleTimeString('hi-IN');
         jawab = "Abhi time ho raha hai " + time;
     }
     else{
-        jawab = "Ye sawal accha tha. Phir se pucho kuch aur.";
+        jawab = "Ye sawal accha tha. Kuch aur pucho.";
     }
-
     bolo(jawab);
 }
-// 3. BOLNE WALA
+
 function bolo(text){
     document.getElementById('reply').innerText += "\n\nAjju AI: " + text;
     let speech = new SpeechSynthesisUtterance(text);
