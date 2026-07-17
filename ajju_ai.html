@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ajju AI Voice</title>
+<style>
+body{background:#000; color:#0ff; text-align:center; padding:50px; font-family:sans-serif;}
+h1{text-shadow:0 0 10px #0ff;}
+.mic{width:150px; height:150px; background:#0ff; border-radius:50%; margin:40px auto; line-height:150px; font-size:70px; color:#000; cursor:pointer; box-shadow:0 0 40px #0ff;}
+.mic:active{background:#fff;}
+#reply{font-size:20px; margin-top:20px;}
+</style>
+</head>
+<body>
+<h1>🤖 Ajju AI</h1>
+<p>Mic dabao aur mujhse baat karo</p>
+<div class="mic" onclick="sun()">🎤</div>
+<div id="reply">Mai sun raha hu...</div>
+
+<script>
+// 1. SUNNE WALA
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+recognition.lang = 'hi-IN';
+
+function sun(){
+    document.getElementById('reply').innerText = "Bol bhai...";
+    recognition.start();
+}
+
+recognition.onresult = function(event){
+    let sawal = event.results[0][0].transcript;
+    document.getElementById('reply').innerText = "Tum: " + sawal;
+    jawabDo(sawal);
+}
+
+// 2. SOCHNE + BOLNE WALA
+function jawabDo(sawal){
+    let jawab = "";
+
+    if(sawal.includes("naam")){
+        jawab = "Mera naam Ajju AI hai. Mai tumhara dost hu.";
+    }
+    else if(sawal.includes("kese ho")){
+        jawab = "Mai mast hu bhai. Tum sunao.";
+    }
+    else if(sawal.includes("kya kar sakte ho")){
+        jawab = "Mai tumse baat kar sakta hu, joke suna sakta hu, time bata sakta hu. Jo bolo.";
+    }
+    else if(sawal.includes("joke")){
+        jawab = "Teacher: Agar tumhare paas 10 aam hai aur mai 5 maang lu to kitne bachenge? Student: Sir 10 hi, kyunki mai dunga hi nahi.";
+    }
+    else{
+        jawab = "Ye sawal accha tha. Iska jawab mere paas abhi nahi hai, par mai seekh jaunga.";
+    }
+
+    bolo(jawab);
+}
+
+// 3. BOLNE WALA
+function bolo(text){
+    document.getElementById('reply').innerText += "\n\nAjju AI: " + text;
+    let speech = new SpeechSynthesisUtterance(text);
+    speech.lang = 'hi-IN';
+    speech.rate = 1;
+    speech.pitch = 1.1;
+    window.speechSynthesis.speak(speech);
+}
+</script>
+</body>
+</html>
