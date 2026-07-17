@@ -36,16 +36,16 @@ function jawabDo(sawal){
     let jawab = "";
     sawal = sawal.toLowerCase();
 
-    if(sawal.includes("naam") || sawal.includes("name") || sawal.includes("kaun ho")){
+    if(sawal.includes("naam") || sawal.includes("name") || sawal.includes("नाम") || sawal.includes("kaun ho") || sawal.includes("कौन हो")){
         jawab = "Mera naam Ajju AI hai. Mai tumhara dost hu.";
     }
-    else if(sawal.includes("kese ho") || sawal.includes("kaise ho")){
+    else if(sawal.includes("kese ho") || sawal.includes("kaise ho") || sawal.includes("कैसे हो")){
         jawab = "Mai ekdum mast hu bhai. Tum sunao.";
     }
-    else if(sawal.includes("joke") || sawal.includes("chutkula")){
-        jawab = "Teacher: Agar tumhare paas 10 aam hai aur mai 5 maang lu to? Student: Sir 10 hi, dunga hi nahi.";
+    else if(sawal.includes("joke") || sawal.includes("chutkula") || sawal.includes("चुटकुला")){
+        jawab = "Master ji: Beta agar 1 kele ke 10 rupaye hai to 2 kele ke? Student: Sir 20 rupaye aur 1 mufat";
     }
-    else if(sawal.includes("time")){
+    else if(sawal.includes("time") || sawal.includes("kitna baja") || sawal.includes("समय")){
         let time = new Date().toLocaleTimeString('hi-IN');
         jawab = "Abhi time ho raha hai " + time;
     }
@@ -54,7 +54,6 @@ function jawabDo(sawal){
     }
     bolo(jawab);
 }
-
 function bolo(text){
     document.getElementById('reply').innerText += "\n\nAjju AI: " + text;
     let speech = new SpeechSynthesisUtterance(text);
