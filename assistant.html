@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ajju Bhai Pro Assistant</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{background:linear-gradient(135deg,#667eea,#764ba2); color:white; text-align:center; padding-top:40px; font-family:sans-serif;}
+.mic{width:130px; height:130px; background:#ff4757; border-radius:50%; margin:30px auto; line-height:130px; font-size:60px; cursor:pointer; box-shadow:0 0 30px #ff4757;}
+.mic.listening{background:#2ed573; animation:pulse 1s infinite;}
+@keyframes pulse{0%{transform:scale(1)} 50%{transform:scale(1.15)} 100%{transform:scale(1)}}
+#output{font-size:22px; margin-top:20px; background:rgba(0,0,0,0.3); padding:15px; border-radius:10px;}
+</style>
+</head>
+<body>
+<h1>🎙️ Ajju Bhai Pro</h1>
+<p>Mic dabao aur bolo</p>
+<div class="mic" onclick="sun()">🎤</div>
+<div id="output">Mai sunne ke liye ready hu...</div>
+
+<audio id="song" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<script>
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+recognition.lang = 'hi-IN';
+
+function sun(){
+    document.querySelector('.mic').classList.add('listening');
+    document.getElementById('output').innerText = "Sun raha hu...";
+    recognition.start();
+}
+
+recognition.onresult = function(event){
+    let command = event.results[0][0].transcript.toLowerCase();
+    document.querySelector('.mic').classList.remove('listening');
+    document.getElementById('output').innerText = "Tumne bola: " + command;
+    kaamKaro(command);
+}
+
+function kaamKaro(command){
+    let reply = "";
+
+    if(command.includes("time") || command.includes("kitna baja")){
+        let time = new Date().toLocaleTimeString('hi-IN');
+        reply = "Abhi time ho raha hai " + time;
+    }
+    else if(command.includes("naam") || command.includes("kaun ho")){
+        reply = "Mai Ajju Bhai ka personal assistant hu";
+    }
+    else if(command.includes("joke") || command.includes("chutkula")){
+        reply = "Master ji: Beta agar 1 kele ke 10 rupaye hai to 2 kele ke? Student: Sir 20 rupaye aur 1 mufat";
+    }
+    else if(command.includes("shayari") || command.includes("sher")){
+        reply = "Teri muskurahat hi meri duniya hai, tere bina ye zindagi adhuri hai";
+    }
+    else if(command.includes("gaana") || command.includes("song") || command.includes("bajao")){
+        document.getElementById('song').play();
+        reply = "Le bhai gaana chalu kar diya";
+    }
+    else if(command.includes("band") || command.includes("stop") || command.includes("ruk")){
+        document.getElementById('song').pause();
+        reply = "Gaana band kar diya";
+    }
+    else if(command.includes("dost") || command.includes("naam lo")){
+        reply = "Mere Ajju Bhai ka sabse accha dost duniya ka sabse accha dost hai";
+    }
+    else if(command.includes("google") || command.includes("search")){
+        let search = command.replace("google", "").replace("search", "").replace("pe", "");
+        window.open("https://www.google.com/search?q=" + search);
+        reply = search + " ko google pe search kar raha hu";
+    }
+    else{
+        reply = "Ye samajh nahi aaya bhai. Phir se bolo";
+    }
+
+    bolo(reply);
+}
+
+function bolo(text){
+    let speech = new SpeechSynthesisUtterance(text);
+    speech.lang = 'hi-IN';
+    speech.rate = 0.9;
+    speech.pitch = 1;
+    window.speechSynthesis.speak(speech);
+}
+</script>
+</body>
+</html>
