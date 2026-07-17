@@ -36,26 +36,30 @@ recognition.onresult = function(event){
 // 2. SOCHNE + BOLNE WALA
 function jawabDo(sawal){
     let jawab = "";
+    sawal = sawal.toLowerCase(); // chota bada ignore karega
 
-    if(sawal.includes("naam")){
+    if(sawal.includes("naam") || sawal.includes("name") || sawal.includes("kaun ho")){
         jawab = "Mera naam Ajju AI hai. Mai tumhara dost hu.";
     }
-    else if(sawal.includes("kese ho")){
-        jawab = "Mai mast hu bhai. Tum sunao.";
+    else if(sawal.includes("kese ho") || sawal.includes("kaise ho")){
+        jawab = "Mai ekdum mast hu bhai. Tum sunao.";
     }
-    else if(sawal.includes("kya kar sakte ho")){
+    else if(sawal.includes("kya kar sakte ho") || sawal.includes("help")){
         jawab = "Mai tumse baat kar sakta hu, joke suna sakta hu, time bata sakta hu. Jo bolo.";
     }
-    else if(sawal.includes("joke")){
-        jawab = "Teacher: Agar tumhare paas 10 aam hai aur mai 5 maang lu to kitne bachenge? Student: Sir 10 hi, kyunki mai dunga hi nahi.";
+    else if(sawal.includes("joke") || sawal.includes("chutkula")){
+        jawab = "Master ji: Beta agar 1 kele ke 10 rupaye hai to 2 kele ke? Student: Sir 20 rupaye aur 1 mufat";
+    }
+    else if(sawal.includes("time") || sawal.includes("kitna baja")){
+        let time = new Date().toLocaleTimeString('hi-IN');
+        jawab = "Abhi time ho raha hai " + time;
     }
     else{
-        jawab = "Ye sawal accha tha. Iska jawab mere paas abhi nahi hai, par mai seekh jaunga.";
+        jawab = "Ye sawal accha tha. Phir se pucho kuch aur.";
     }
 
     bolo(jawab);
 }
-
 // 3. BOLNE WALA
 function bolo(text){
     document.getElementById('reply').innerText += "\n\nAjju AI: " + text;
